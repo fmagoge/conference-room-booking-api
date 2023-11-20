@@ -11,4 +11,8 @@ public class Constants {
 	public static int ROOM_2_CAPACITY = 7;
 	public static int ROOM_3_CAPACITY = 12;
 	public static int ROOM_4_CAPACITY = 20;
+	
+	public static String FIRST_MAINTAINENCE_TIME = "09:00 09:15";
+	public static String SECOND_MAINTAINENCE_TIME = "13:00 13:15";
+	public static String THIRD_MAINTAINENCE_TIME = "17:00 17:15";
 }

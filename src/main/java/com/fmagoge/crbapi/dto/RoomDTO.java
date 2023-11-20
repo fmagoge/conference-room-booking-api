@@ -7,14 +7,16 @@ public class RoomDTO {
     private String name;
     private int capacity;
     private boolean availablity;
+    private String availablityString;
     private String startTime;
     private String endTime;
     
-	public RoomDTO(long id, String name, int capacity, boolean availablity, String startTime, String endTime) {
+	public RoomDTO(long id, String name, int capacity, boolean availablity, String availablityString, String startTime, String endTime) {
 		this.id = id;
 		this.name = name;
 		this.capacity = capacity;
 		this.availablity = availablity;
+		this.availablityString = availablity ? "Available":" Not Available";
 		this.startTime = startTime;
 		this.endTime = endTime;
 	}
@@ -70,9 +72,20 @@ public class RoomDTO {
 		this.endTime = endTime;
 	}
 
+	public String getAvailablityString() {
+		return availablityString;
+	}
+
+	public void setAvailablityString(String availablityString) {
+		this.availablityString = availablityString;
+	}
+
 	@Override
 	public String toString() {
 		return "RoomDTO [id=" + id + ", name=" + name + ", capacity=" + capacity + ", availablity=" + availablity
-				+ ", startTime=" + startTime + ", endTime=" + endTime + "]";
+				+ ", availablityString=" + availablityString + ", startTime=" + startTime + ", endTime=" + endTime
+				+ "]";
 	}
+
+	
 }

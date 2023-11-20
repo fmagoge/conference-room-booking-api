@@ -1,53 +1,61 @@
 package com.fmagoge.crbapi.model;
 
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.OneToMany;
 
 @Entity
-@Table(name = "rooms")
 public class Room {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	@Column(name = "room_name")
-    private String name;
-    
+	private String name;
+
 	@Column(name = "capacity")
-    private int capacity;
-    
+	private int capacity;
+
 	@Column(name = "availability")
-    private boolean availablity;
-    
-	@Column(name = "start_time")
-    private String startTime;
-    
-	@Column(name = "end_time")
-    private String endTime;
+	private boolean availablity;
+
+	@OneToMany(mappedBy = "room", fetch = FetchType.EAGER,
+			  cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	private List<Booking> bookings;
 	
+	public void addBooking(Booking booking) {
+		if (booking != null) {
+			if (bookings == null) {
+				bookings = new ArrayList<>();
+			}
+			bookings.add(booking);
+			booking.setRoom(this);
+		}
+	}
+
 	
 
-	public Room(Long id, String name, int capacity, boolean availablity, String startTime, String endTime) {
+	public Room(Long id, String name, int capacity, boolean availablity, List<Booking> bookings) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.capacity = capacity;
 		this.availablity = availablity;
-		this.startTime = startTime;
-		this.endTime = endTime;
+		this.bookings = bookings;
 	}
 
-	
 	public Room() {
-		
-	}
 
+	}
 
 	public Long getId() {
 		return id;
@@ -81,27 +89,12 @@ public class Room {
 		this.availablity = availablity;
 	}
 
-	public String getStartTime() {
-		return startTime;
+	public List<Booking> getBookings() {
+		return bookings;
 	}
 
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
-
-	public String getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
-	}
-
-
-	@Override
-	public String toString() {
-		return "Room [id=" + id + ", name=" + name + ", capacity=" + capacity + ", availablity=" + availablity
-				+ ", startTime=" + startTime + ", endTime=" + endTime + "]";
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
 	}
 	
 }
